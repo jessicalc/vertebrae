@@ -84,7 +84,15 @@ myTweet.on('change',
     console.log(e);
 
     // Write code to log the changed attribute:
-    // window.alert(e.attributes.message);
+    // var changedElems = Object.keys(e.changed);
+    // console.log("changedElems are: " + changedElems);
+    // console.log(e.changed);
+
+    for(var key in e.changed) {
+      window.alert(e.changed[key]);
+    }
+
+    // window.alert(myTweet.changedAttributes());
   }
 );
 
