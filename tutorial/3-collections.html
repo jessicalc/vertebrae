@@ -93,8 +93,7 @@ var CommentsView = Backbone.View.extend({
   initialize: function(collection) {
     /* Backbone events bubble up through collections,
      * so monitoring a model in a collection is easy! */
-    this.model.on('change:votes', this.render, this);
-    this.model = collection['model'];
+    this.model.on('change', this.render, this);
   },
 
   // Now we must render the collection:
@@ -114,7 +113,8 @@ var CommentsView = Backbone.View.extend({
     /* Render each model in the collection as a list item (<li>).
      * Remember, we have the underscore functions: */
     this.$el.find('ul').append(this.model.map(function(comment) {
-      return '<li>' + comment.get('message') + " " + comment.get('votes') + ' votes </li>';
+      var commentView = new CommentView({ model: comment });
+      return '<li>' + commentView.render().html() + '</li>'
     }));
 
     return this.$el;
